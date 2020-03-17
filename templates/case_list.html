@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}YFCase{% endblock %}
+{% block content %}
+{% for case in object_list %}
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold">{{ case.casenumber }}</span> &middot;
+        <span class="text-muted">by {{ case.city }}{{ case.township }}{{ case.section }}{{ case.small_section }}</span>
+    </div>
+    <div class="card-body">
+    	待輸入內容
+    </div>
+    <div class="card-footer text-center text-muted">
+        <a href="{% url 'case_edit' case.pk %}">Edit</a> |
+        <a href="{% url 'case_delete' case.pk %}">Delete</a>
+    </div>
+</div>
+<br />
+{% endfor %}
+{% endblock content %}
+
+
+

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="case-entry">
+	    <h2>{{ object.casenumber }}</h2>
+	    <p>{{ object.city }}{{ object.township }}{{ object.section }}{{ object.small_section }}</p>
+	    <p>待輸入內容</p>
+	</div>
+
+	<p>
+		<a href="{% url 'case_edit' case.pk %}">Edit</a> | 
+		<a href="{% url 'case_delete' case.pk %}">Delete</a></p>
+	<p>Back to <a href="{% url 'case_list' %}">All cases</a>.</p>
+{% endblock content %}
