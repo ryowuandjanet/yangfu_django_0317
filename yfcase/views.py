@@ -38,5 +38,3 @@ class CaseDeleteView(LoginRequiredMixin,DeleteView):
 	success_url = reverse_lazy('case_list')
 	login_url = 'login'
 
-# class HomePageView(TemplateView):
-# 	template_name = 'home.html'
