@@ -4,24 +4,26 @@
 {% block content %}
 <h1>New article</h1>
 <form action="" method="post">{% csrf_token %}
-    {{ form.casenumber|as_crispy_field }}
+    <!-- 基本資料 -->
+    {{ form.casenumber }}
     <div class="form-row">
         <div class="form-group col-md-2 mb-0">
-            {{ form.city|as_crispy_field }}
+            {{ form.city }}
         </div>
         <div class="form-group col-md-2 mb-0">
-            {{ form.township|as_crispy_field }}
+            {{ form.township }}
         </div>
         <div class="form-group col-md-2 mb-0">
-            {{ form.section|as_crispy_field }}
+            {{ form.section }}
         </div>
         <div class="form-group col-md-2 mb-0">
-            {{ form.small_section|as_crispy_field }}
+            {{ form.small_section }}
         </div>
         <div class="form-group col-md-4 mb-0">
-            {{ form.other_address|as_crispy_field }}
+            {{ form.other_address }}
         </div>
     </div>
+    <!-- 地號 -->
     <table class="table">
         {{ lands.management_form }}
         {% for form in lands.forms %}
@@ -50,6 +52,228 @@
         </tr>
         {% endfor %}
     </table>
+    <!-- 建物 -->
+    <table class="table">
+        {{ builds.management_form }}
+        {% for form in builds.forms %}
+        {% if forloop.first %}
+        <thead>
+            <tr>
+                {% for field in form.visible_fields %}
+                <th>{{ field.label|capfirst }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% endif %}
+        <tr class="{% cycle row1 row2 %} formset_row2">
+            {% for field in form.visible_fields %}
+            <td>
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% endif %}
+                {{ field.errors.as_ul }}
+                {{ field }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <table class="table">
+        <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+                {{ form.auctionday1 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.floorprice1 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.click1 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.monitor1 }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+                {{ form.auctionday2 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.floorprice2 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.click2 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.monitor2 }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+                {{ form.auctionday3 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.floorprice3 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.click3 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.monitor3 }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+                {{ form.auctionday4 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.floorprice4 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.click4 }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.monitor4 }}
+            </div>
+        </div>
+    </table>
+    <!-- 人員 -->
+    <table class="table">
+        {{ personnals.management_form }}
+        {% for form in personnals.forms %}
+        {% if forloop.first %}
+        <thead>
+            <tr>
+                {% for field in form.visible_fields %}
+                <th>{{ field.label|capfirst }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% endif %}
+        <tr class="{% cycle row1 row2 %} formset_row3">
+            {% for field in form.visible_fields %}
+            <td>
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% endif %}
+                {{ field.errors.as_ul }}
+                {{ field }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <!-- 勘查記錄 -->
+    {{ form.first_surveydate }}
+    {{ form.other_surveydate }}
+    {{ form.foreclosure_announcement }}
+    {{ form.object_photos }}
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.foreclosure_announcement_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.foreclosure_announcement_text }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.object_photos_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.object_photos_text }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_market_price_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_market_price_text }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_map_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_map_text }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_phot_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.registration_phot_text }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.foreclosure_record_link }}
+        </div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.foreclosure_record_text }}
+        </div>
+    </div>
+    {{ form.foreclosure_record }}
+    {{ form.survey_remark }}
+    {{ form.survey_decision }}
+    {{ form.final_decision }}
+    {{ form.deputy_director1 }}
+    {{ form.deputy_director2 }}
+    {{ form.deputy_director3 }}
+    <!-- 物件查檢表 -->
+    {{ form.occupyneighbouringland }}
+    {{ form.register }}
+    {{ form.parkingspace }}
+    {{ form.managementfee }}
+    {{ form.occupy }}
+    {{ form.leak }}
+    {{ form.easyparking }}
+    {{ form.railway }}
+    {{ form.vegetablemarket }}
+    {{ form.store }}
+    {{ form.school }}
+    {{ form.park }}
+    {{ form.postoffice }}
+    {{ form.mainroad }}
+    {{ form.waterandpowerfailure }}
+    {{ form.goodvision }}
+    <!-- 物件 -->
+    <table class="table">
+        {{ objectbuilds.management_form }}
+        {% for form in objectbuilds.forms %}
+        {% if forloop.first %}
+        <thead>
+            <tr>
+                {% for field in form.visible_fields %}
+                <th>{{ field.label|capfirst }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% endif %}
+        <tr class="{% cycle row1 row2 %} formset_row4">
+            {% for field in form.visible_fields %}
+            <td>
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% endif %}
+                {{ field.errors.as_ul }}
+                {{ field }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
     <input type="submit" value="Save" /> <a href="{% url 'case_list' %}">back to the list</a>
     <!-- <button class="btn btn-success ml-2 " type="submit">Save</button> -->
 </form>
@@ -60,6 +284,21 @@ $('.formset_row').formset({
     addText: '新增地號',
     deleteText: '刪除',
     prefix: 'land_set'
+});
+$('.formset_row2').formset({
+    addText: '新增建號',
+    deleteText: '刪除',
+    prefix: 'build_set'
+});
+$('.formset_row3').formset({
+    addText: '新增人員',
+    deleteText: '刪除',
+    prefix: 'personnal_set'
+});
+$('.formset_row4').formset({
+    addText: '新增物件',
+    deleteText: '刪除',
+    prefix: 'objectbuild_set'
 });
 </script>
 {% endblock %}
