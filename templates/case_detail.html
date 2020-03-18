@@ -3,7 +3,12 @@
 	<div class="case-entry">
 	    <h2>{{ object.casenumber }}</h2>
 	    <p>{{ object.city }}{{ object.township }}{{ object.section }}{{ object.small_section }}</p>
-	    <p>待輸入內容</p>
+	    <p>
+            {% for land in object.land_set.all %}
+                {{ land.landnumber }}
+                {{ land.landurl }}
+            {% endfor %}
+        </p>
 	</div>
 
 	<p>
