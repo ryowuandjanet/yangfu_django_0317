@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import LandFormSet,BuildFormSet,PersonnalFormSet,ObjectbuildFormSet
+from .forms import CaseForm,LandFormSet,BuildFormSet,PersonnalFormSet,ObjectbuildFormSet
 from .models import Case
 
 class CaseListView(LoginRequiredMixin,ListView):
@@ -39,11 +39,13 @@ class CaseFamilyCreateView(LoginRequiredMixin,CreateView):
     def get_context_data(self, **kwargs):
         data = super(CaseFamilyCreateView, self).get_context_data(**kwargs)
         if self.request.POST:
+            data['cases'] = CaseForm(self.request.POST)
             data['lands'] = LandFormSet(self.request.POST)
             data['builds'] = BuildFormSet(self.request.POST)
             data['personnals'] = PersonnalFormSet(self.request.POST)
             data['objectbuilds'] = ObjectbuildFormSet(self.request.POST)
         else:
+            data['cases'] = CaseForm()
             data['lands'] = LandFormSet()
             data['builds'] = BuildFormSet()
             data['personnals'] = PersonnalFormSet()
@@ -52,6 +54,7 @@ class CaseFamilyCreateView(LoginRequiredMixin,CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
+        cases = context['cases']
         lands = context['lands']
         builds = context['builds']
         personnals = context['personnals']
@@ -59,6 +62,9 @@ class CaseFamilyCreateView(LoginRequiredMixin,CreateView):
         with transaction.atomic():
             self.object = form.save()
 
+            if cases.is_valid():
+                cases.instance = self.object
+                cases.save()
             if lands.is_valid():
                 lands.instance = self.object
                 lands.save()

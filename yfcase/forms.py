@@ -1,4 +1,5 @@
-from django.forms import ModelForm, inlineformset_factory
+from django import forms
+from django.forms import ModelForm, inlineformset_factory,Textarea 
 from .models import Case,Land,Build,Personnal,Objectbuild
 
 class CaseForm(ModelForm):

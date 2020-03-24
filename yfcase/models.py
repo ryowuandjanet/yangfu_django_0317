@@ -8,7 +8,7 @@ class Case(models.Model):
 	township = models.CharField(u"鄉鎮區",max_length=20)
 	section = models.CharField(u"段",max_length=20)
 	small_section = models.CharField(u"小段",max_length=20)
-	other_address = models.CharField(u"地址",max_length=200)
+	other_address = models.CharField(u"地址",max_length=20)
 	first_surveydate = models.DateField(u"初勘日",auto_now=False, auto_now_add=False)
 	other_surveydate = models.DateField(u"覆勘日",auto_now=False, auto_now_add=False)
 	survey_remark = models.CharField(u"勘查備註",max_length=100,blank=True, null=True)

@@ -12,7 +12,7 @@
 	</div>
 
 	<p>
-		<a href="{% url 'case_edit' case.pk %}">Edit</a> | 
-		<a href="{% url 'case_delete' case.pk %}">Delete</a></p>
-	<p>Back to <a href="{% url 'case_list' %}">All cases</a>.</p>
+		<a href="{% url 'case_edit' case.pk %}">編輯</a> | 
+		<a href="{% url 'case_delete' case.pk %}">刪除</a></p>
+	<p>返回到 <a href="{% url 'case_list' %}">所有的案件</a>.</p>
 {% endblock content %}
